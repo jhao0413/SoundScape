@@ -536,7 +536,9 @@ export const Settings = ({ onClose }) => {
                       </div>
                       <div className="flex items-center justify-between py-2 border-b border-gray-200">
                         <span className="text-gray-600">前端项目地址</span>
-                        <span className="text-gray-400 text-sm">待定</span>
+                        <span className="text-gray-400 text-sm"><a href="https://github.com/jhao0413/SoundScape" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] text-sm underline">
+                          SoundScape
+                        </a></span>
                       </div>
                       <div className="flex items-center justify-between py-2">
                         <span className="text-gray-600">文档地址</span>
