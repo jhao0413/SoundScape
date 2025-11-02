@@ -1,0 +1,33 @@
+{
+  "name": "soundscape",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroui/button": "^2.2.27",
+    "@heroui/input": "^2.4.28",
+    "@heroui/react": "2.8.5",
+    "@heroui/switch": "^2.2.24",
+    "@heroui/toast": "2.0.17",
+    "@tailwindcss/postcss": "^4.1.16",
+    "@tailwindcss/vite": "^4.1.16",
+    "framer-motion": "^11.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.4",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^4.1.16",
+    "vite": "^7.1.7"
+  }
+}
