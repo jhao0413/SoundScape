@@ -1,5 +1,5 @@
 // API Service for SoundScape backend
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://192.168.110.56:8090';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || window.location.origin;
 
 // Basic Auth credentials (should be configured via env variables)
 const getAuthHeader = () => {
