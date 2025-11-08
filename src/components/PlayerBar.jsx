@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Slider } from "@heroui/react";
+import { Slider, Select, SelectItem } from "@heroui/react";
 import { useMusicStore } from '../store/useMusicStore';
 import { PlayingAnimation, PausedIcon } from './PlayingAnimation';
 
@@ -348,17 +348,21 @@ export const PlayerBar = () => {
             {formatTime(playProgress.offset)}/{formatTime(playProgress.duration)}
           </span>
 
-          <select
-            value={selectedDevice}
-            onChange={(e) => setDevice(e.target.value)}
-            className="text-xs bg-white/50 border border-gray-200 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#31c27c]"
+          <Select
+            selectedKeys={selectedDevice ? [selectedDevice] : []}
+            onSelectionChange={(keys) => {
+              const selected = Array.from(keys)[0];
+              if (selected) setDevice(selected);
+            }}
+            className="w-48"
+            aria-label="选择设备"
           >
             {devices.map((device) => (
-              <option key={device.did} value={device.did}>
+              <SelectItem key={device.did} value={device.did}>
                 {device.name || device.did}
-              </option>
+              </SelectItem>
             ))}
-          </select>
+          </Select>
         </div>
       </div>
     </div>
