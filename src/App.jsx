@@ -65,13 +65,13 @@ function App() {
 
       {/* Error Toast */}
       {error && (
-        <div className="fixed top-6 right-6 z-50 bg-white/95 backdrop-blur-xl shadow-2xl rounded-2xl p-4 border border-gray-200 animate-in slide-in-from-top">
+        <div className="fixed top-2 right-2 left-2 sm:top-6 sm:right-6 sm:left-auto z-50 bg-white/95 backdrop-blur-xl shadow-2xl rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-gray-200 animate-in slide-in-from-top max-w-sm sm:max-w-md mx-auto sm:mx-0">
           <div className="flex items-center gap-3">
-            <span className="text-red-500">⚠️</span>
-            <p className="text-sm text-gray-800">{error}</p>
+            <span className="text-red-500 text-lg">⚠️</span>
+            <p className="text-xs sm:text-sm text-gray-800 flex-1">{error}</p>
             <button
               onClick={clearError}
-              className="text-gray-400 hover:text-gray-600 ml-2 transition-colors"
+              className="text-gray-400 hover:text-gray-600 ml-2 transition-colors text-lg sm:text-xl"
             >
               ✕
             </button>
@@ -80,8 +80,8 @@ function App() {
       )}
 
       {/* Main Container - Glass Card */}
-      <div className="relative z-10 flex flex-col h-screen p-6">
-        <div className="flex flex-col flex-1 overflow-hidden bg-white/60 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white/40">
+      <div className="relative z-10 flex flex-col h-screen p-2 sm:p-4 md:p-6">
+        <div className="flex flex-col flex-1 overflow-hidden bg-white/60 backdrop-blur-2xl rounded-xl sm:rounded-2xl md:rounded-3xl shadow-2xl border border-white/40">
           {/* Main Layout */}
           <div className="flex flex-1 overflow-hidden">
             {/* Sidebar */}

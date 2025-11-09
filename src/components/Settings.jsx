@@ -71,28 +71,29 @@ export const Settings = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-      <div className="w-full h-full max-w-6xl max-h-[90vh] m-6 flex bg-white backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm p-2 sm:p-4 md:p-6">
+      <div className="w-full h-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] m-0 sm:m-4 md:m-6 flex flex-col md:flex-row bg-white backdrop-blur-xl rounded-xl sm:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
         {/* Left Sidebar Navigation */}
-        <div className="w-64 border-r border-gray-300 flex flex-col">
+        <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-gray-300 flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible flex-shrink-0">
 
           {/* Menu Items */}
-          <div className="flex-1 overflow-y-auto scrollbar-thin p-4">
-            <div className="space-y-1">
+          <div className="flex-1 overflow-y-auto md:overflow-y-auto scrollbar-thin p-2 sm:p-4 flex md:flex-col flex-row gap-1 md:gap-0">
+            <div className="flex md:flex-col flex-row gap-1 md:space-y-1">
               {menuItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setSelectedMenu(item.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                  className={`flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 md:py-2.5 rounded-lg text-xs md:text-sm transition-all whitespace-nowrap touch-manipulation ${
                     selectedMenu === item.id
                       ? 'bg-[#31c27c] text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-white/50'
+                      : 'text-gray-700 hover:bg-white/50 active:bg-white/70'
                   }`}
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
                   </svg>
-                  <span>{item.label}</span>
+                  <span className="hidden sm:inline">{item.label}</span>
+                  <span className="sm:hidden">{item.label.replace(/设置|配置/g, '')}</span>
                 </button>
               ))}
             </div>
@@ -100,40 +101,41 @@ export const Settings = ({ onClose }) => {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-300 ">
-            <div className="flex items-center gap-3">
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="flex items-center justify-between p-3 sm:p-4 md:p-6 border-b border-gray-300 flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <h2 className="text-xl font-bold text-gray-800">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-800 truncate">
                 {menuItems.find(item => item.id === selectedMenu)?.label || '基本信息'}
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 active:bg-gray-100 transition-colors flex-shrink-0 touch-manipulation"
               title="关闭"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto scrollbar-thin p-6">
+          <div className="flex-1 overflow-y-auto scrollbar-thin p-3 sm:p-4 md:p-6">
             {selectedMenu === 'basic' && (
-              <div className="max-w-2xl space-y-8">
+              <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
                 <Input
                   label="小米账号"
                   labelPlacement="outside"
                   placeholder="请输入小米账号"
                   value={formData.account || ''}
                   onChange={(e) => updateField('account', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -143,13 +145,14 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入密码"
                   value={formData.password || ''}
                   onChange={(e) => updateField('password', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
-                <div className="border-gray-200">
+                <div className="border-gray-200 pt-2">
                   <Button 
                     color="success"
-                    className="text-white"
+                    className="text-white w-full sm:w-auto"
                     onPress={handleSave}
                     isLoading={isSaving}
                   >
@@ -160,14 +163,15 @@ export const Settings = ({ onClose }) => {
             )}
 
             {selectedMenu === 'preference' && (
-              <div className="max-w-2xl space-y-8">
+              <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
                 <Input
                   label="音乐目录"
                   labelPlacement="outside"
                   placeholder="请输入音乐目录路径"
                   value={formData.music_path || ''}
                   onChange={(e) => updateField('music_path', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -176,7 +180,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入下载目录路径"
                   value={formData.download_path || ''}
                   onChange={(e) => updateField('download_path', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -185,7 +190,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入临时文件目录路径"
                   value={formData.temp_path || ''}
                   onChange={(e) => updateField('temp_path', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -194,7 +200,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入配置文件目录路径"
                   value={formData.conf_path || ''}
                   onChange={(e) => updateField('conf_path', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -203,7 +210,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入缓存目录路径"
                   value={formData.cache_dir || ''}
                   onChange={(e) => updateField('cache_dir', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -212,7 +220,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入日志文件路径"
                   value={formData.log_file || ''}
                   onChange={(e) => updateField('log_file', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -221,13 +230,14 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入FFmpeg路径"
                   value={formData.ffmpeg_location || ''}
                   onChange={(e) => updateField('ffmpeg_location', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
-                <div className="border-gray-200">
+                <div className="border-gray-200 pt-2">
                   <Button 
                     color="success"
-                    className="text-white"
+                    className="text-white w-full sm:w-auto"
                     onClick={handleSave}
                     isLoading={isSaving}
                   >
@@ -238,14 +248,15 @@ export const Settings = ({ onClose }) => {
             )}
 
             {selectedMenu === 'users' && (
-              <div className="max-w-2xl space-y-8">
+              <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
                 <Input
                   label="主机名/IP"
                   labelPlacement="outside"
                   placeholder="请输入主机名或IP地址"
                   value={formData.hostname || ''}
                   onChange={(e) => updateField('hostname', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -255,7 +266,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入端口号"
                   value={formData.port || ''}
                   onChange={(e) => updateField('port', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -265,7 +277,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入公共端口号"
                   value={formData.public_port || ''}
                   onChange={(e) => updateField('public_port', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -274,7 +287,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入代理地址"
                   value={formData.proxy || ''}
                   onChange={(e) => updateField('proxy', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <div className="flex items-center gap-2">
@@ -295,7 +309,8 @@ export const Settings = ({ onClose }) => {
                       placeholder="请输入用户名"
                       value={formData.httpauth_username || ''}
                       onChange={(e) => updateField('httpauth_username', e.target.value)}
-                      
+                      size="sm"
+                      className="w-full"
                     />
 
                     <Input
@@ -305,15 +320,16 @@ export const Settings = ({ onClose }) => {
                       placeholder="请输入密码"
                       value={formData.httpauth_password || ''}
                       onChange={(e) => updateField('httpauth_password', e.target.value)}
-                      
+                      size="sm"
+                      className="w-full"
                     />
                   </>
                 )}
 
-                <div className="border-gray-200">
+                <div className="border-gray-200 pt-2">
                   <Button 
                     color="success"
-                    className="text-white"
+                    className="text-white w-full sm:w-auto"
                     onClick={handleSave}
                     isLoading={isSaving}
                   >
@@ -324,14 +340,15 @@ export const Settings = ({ onClose }) => {
             )}
 
             {selectedMenu === 'schedule' && (
-              <div className="max-w-2xl space-y-8">
+              <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
                 <Input
                   label="允许唤醒的命令"
                   labelPlacement="outside"
                   placeholder="请输入允许的命令，用逗号分隔"
                   value={formData.active_cmd || ''}
                   onChange={(e) => updateField('active_cmd', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -340,7 +357,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_playlocal || ''}
                   onChange={(e) => updateField('keywords_playlocal', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -349,7 +367,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_play || ''}
                   onChange={(e) => updateField('keywords_play', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -358,7 +377,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_playlist || ''}
                   onChange={(e) => updateField('keywords_playlist', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -367,7 +387,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_stop || ''}
                   onChange={(e) => updateField('keywords_stop', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -376,7 +397,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_search_playlocal || ''}
                   onChange={(e) => updateField('keywords_search_playlocal', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -385,7 +407,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入口令，用逗号分隔"
                   value={formData.keywords_search_play || ''}
                   onChange={(e) => updateField('keywords_search_play', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <div className="flex items-center gap-2">
@@ -398,10 +421,10 @@ export const Settings = ({ onClose }) => {
                   </Switch>
                 </div>
 
-                <div className="border-gray-200">
+                <div className="border-gray-200 pt-2">
                   <Button 
                     color="success"
-                    className="text-white"
+                    className="text-white w-full sm:w-auto"
                     onClick={handleSave}
                     isLoading={isSaving}
                   >
@@ -412,7 +435,7 @@ export const Settings = ({ onClose }) => {
             )}
 
             {selectedMenu === 'storage' && (
-              <div className="max-w-2xl space-y-8">
+              <div className="max-w-2xl space-y-4 sm:space-y-6 md:space-y-8">
                 <div className="flex items-center gap-2">
                   <Switch
                     color="success"
@@ -430,16 +453,17 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入间隔秒数"
                   value={formData.pull_ask_sec || ''}
                   onChange={(e) => updateField('pull_ask_sec', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
-                <div className="flex items-center gap-2 mb-10">
+                <div className="flex items-center gap-2 mb-4 sm:mb-6 md:mb-10">
                   <Switch
                     color="success"
                     isSelected={formData.get_ask_by_mina || false}
                     onValueChange={(value) => updateField('get_ask_by_mina', value)}
                   >
-                    特殊型号获取对话记录
+                    <span className="text-sm">特殊型号获取对话记录</span>
                   </Switch>
                 </div>
 
@@ -449,7 +473,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入停止提示音内容"
                   value={formData.stop_tts_msg || ''}
                   onChange={(e) => updateField('stop_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -458,7 +483,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入单曲循环提示音内容"
                   value={formData.play_type_one_tts_msg || ''}
                   onChange={(e) => updateField('play_type_one_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -467,7 +493,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入全部循环提示音内容"
                   value={formData.play_type_all_tts_msg || ''}
                   onChange={(e) => updateField('play_type_all_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -476,7 +503,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入随机播放提示音内容"
                   value={formData.play_type_rnd_tts_msg || ''}
                   onChange={(e) => updateField('play_type_rnd_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -485,7 +513,8 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入单曲播放提示音内容"
                   value={formData.play_type_sin_tts_msg || ''}
                   onChange={(e) => updateField('play_type_sin_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
                 <Input
@@ -494,13 +523,14 @@ export const Settings = ({ onClose }) => {
                   placeholder="请输入顺序播放提示音内容"
                   value={formData.play_type_seq_tts_msg || ''}
                   onChange={(e) => updateField('play_type_seq_tts_msg', e.target.value)}
-                  
+                  size="sm"
+                  className="w-full"
                 />
 
-                <div className="border-gray-200">
+                <div className="border-gray-200 pt-2">
                   <Button 
                     color="success"
-                    className="text-white"
+                    className="text-white w-full sm:w-auto"
                     onClick={handleSave}
                     isLoading={isSaving}
                   >
@@ -511,50 +541,50 @@ export const Settings = ({ onClose }) => {
             )}
 
             {selectedMenu === 'about' && (
-              <div className="flex items-center justify-center h-full">
-                <div className="max-w-lg w-full space-y-8">
-                  <div className="text-center space-y-8">
+              <div className="flex items-center justify-center h-full min-h-0 py-4 sm:py-8">
+                <div className="max-w-lg w-full space-y-4 sm:space-y-6 md:space-y-8 px-2">
+                  <div className="text-center space-y-4 sm:space-y-6 md:space-y-8">
                     <div className="flex justify-center">
-                      <div className="w-24 h-24 bg-gradient-to-br from-[#31c27c] to-[#28a869] rounded-2xl flex items-center justify-center shadow-lg">
-                        <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-[#31c27c] to-[#28a869] rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg">
+                        <svg className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                         </svg>
                       </div>
                     </div>
                     
                     <div className="">
-                      <h3 className="text-2xl font-bold text-gray-800">SoundScape</h3>
-                      <p className="text-gray-600 leading-relaxed">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-800">SoundScape</h3>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed px-2">
                         本项目是为 <a href="https://github.com/hanxi/xiaomusic" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] underline">xiaomusic</a> 使用的前端项目
                       </p>
                     </div>
 
-                    <div className="bg-gray-50 rounded-xl p-6 space-y-4 text-left mx-auto max-w-sm">
-                      <div className="flex items-center justify-between py-2 border-b border-gray-200">
-                        <span className="text-gray-600">版本</span>
-                        <span className="font-medium text-gray-800">{version}</span>
+                    <div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-3 sm:space-y-4 text-left mx-auto max-w-sm">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 border-b border-gray-200 gap-1 sm:gap-0">
+                        <span className="text-sm text-gray-600">版本</span>
+                        <span className="text-sm sm:text-base font-medium text-gray-800">{version}</span>
                       </div>
-                      <div className="flex items-center justify-between py-2 border-b border-gray-200">
-                        <span className="text-gray-600">前端项目地址</span>
-                        <span className="text-gray-400 text-sm"><a href="https://github.com/jhao0413/SoundScape" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] text-sm underline">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 border-b border-gray-200 gap-1 sm:gap-0">
+                        <span className="text-sm text-gray-600">前端项目地址</span>
+                        <a href="https://github.com/jhao0413/SoundScape" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] text-xs sm:text-sm underline break-all sm:break-normal">
                           SoundScape
-                        </a></span>
+                        </a>
                       </div>
-                      <div className="flex items-center justify-between py-2">
-                        <span className="text-gray-600">文档地址</span>
-                        <a href="https://xdocs.hanxi.cc/" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] text-sm underline">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 gap-1 sm:gap-0">
+                        <span className="text-sm text-gray-600">文档地址</span>
+                        <a href="https://xdocs.hanxi.cc/" target="_blank" rel="noopener noreferrer" className="text-[#31c27c] hover:text-[#28a869] text-xs sm:text-sm underline break-all sm:break-normal">
                           xdocs.hanxi.cc
                         </a>
                       </div>
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-2 sm:pt-4">
                       <Button 
                         color="success"
-                        className="text-white"
+                        className="text-white w-full sm:w-auto"
                         onClick={() => window.open('https://github.com/hanxi/xiaomusic', '_blank')}
                       >
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                         访问后端项目
