@@ -36,6 +36,18 @@ export const useMusicStore = create((set, get) => ({
 
   // Actions
   
+  // 将播放模式索引转换为模式字符串
+  playModeIndexToMode: (index) => {
+    const modeMap = {
+      0: 'single_loop',   // 单曲循环
+      1: 'all_loop',      // 全部循环
+      2: 'random',        // 随机播放
+      3: 'single',        // 单曲播放
+      4: 'sequential'    // 顺序播放
+    };
+    return modeMap[index] || 'sequential';
+  },
+
   // 加载设备列表
   loadDevices: async () => {
     try {
@@ -51,9 +63,21 @@ export const useMusicStore = create((set, get) => ({
         
         set({ devices: devicesArray });
         
+        const { selectedDevice } = get();
+        const currentDevice = selectedDevice 
+          ? devicesArray.find(d => d.did === selectedDevice)
+          : (devicesArray.length > 0 ? devicesArray[0] : null);
+        
         // 设置默认选中第一个设备
-        if (devicesArray.length > 0 && !get().selectedDevice) {
+        if (devicesArray.length > 0 && !selectedDevice) {
           set({ selectedDevice: devicesArray[0].did });
+        }
+        
+        // 从设备信息中读取播放模式
+        if (currentDevice && typeof currentDevice.play_type === 'number') {
+          const playMode = get().playModeIndexToMode(currentDevice.play_type);
+          set({ playMode });
+          console.log('从设备信息加载播放模式:', playMode, '索引:', currentDevice.play_type);
         }
       }
     } catch (err) {
@@ -127,8 +151,10 @@ export const useMusicStore = create((set, get) => ({
   },
 
   // 设置设备
-  setDevice: (deviceId) => {
+  setDevice: async (deviceId) => {
     set({ selectedDevice: deviceId });
+    // 切换设备后，重新加载设备信息以获取该设备的播放模式
+    await get().loadDevices();
   },
 
   // 设置播放列表
@@ -357,10 +383,18 @@ export const useMusicStore = create((set, get) => ({
     const { selectedDevice } = get();
     if (!selectedDevice) return;
     try {
+      // 先更新本地状态，提供即时反馈
       set({ playMode: mode });
+      // 调用 API 设置播放模式
       await api.setPlayMode(selectedDevice, mode);
+      // 切换播放模式后，重新加载设备信息以同步状态
+      // 参考原版实现：切换某些播放模式后会 location.reload()
+      // 这里我们重新加载设备信息来获取最新的 play_type，确保状态同步
+      await get().loadDevices();
     } catch (err) {
       set({ error: 'Failed to set play mode: ' + err.message });
+      // 如果失败，尝试从设备信息恢复播放模式
+      await get().loadDevices();
     }
   },
 }));
